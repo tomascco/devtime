@@ -5,7 +5,7 @@ class HitsController < ApplicationController
 
   # GET /hits or /hits.json
   def index
-    @hits = Hit.all
+    @hits = current_account.hits
   end
 
   # GET /hits/1 or /hits/1.json
@@ -24,6 +24,7 @@ class HitsController < ApplicationController
   # POST /hits or /hits.json
   def create
     @hit = Hit.new(hit_params)
+    @hit.account = current_account
 
     respond_to do |format|
       if @hit.save
