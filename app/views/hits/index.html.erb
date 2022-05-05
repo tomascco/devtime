@@ -5,10 +5,5 @@
 <div id="hits">
   <% @hits.each do |hit| %>
     <%= render hit %>
-    <p>
-      <%= link_to "Show this hit", hit %>
-    </p>
   <% end %>
 </div>
-
-<%= link_to "New hit", new_hit_path %>
