@@ -4,7 +4,7 @@ class RodauthMain < Rodauth::Rails::Auth
     enable :create_account, :verify_account, :verify_account_grace_period,
       :login, :logout, :remember,
       :reset_password, :change_password, :change_password_notify,
-      :change_login, :verify_login_change, :close_account
+      :change_login, :verify_login_change, :close_account, :jwt
 
     # See the Rodauth documentation for the list of available config options:
     # http://rodauth.jeremyevans.net/documentation.html
@@ -122,6 +122,8 @@ class RodauthMain < Rodauth::Rails::Auth
 
     # Ensure requiring login follows login route changes.
     require_login_redirect { login_path }
+
+    jwt_secret ::Rails.application.secret_key_base
 
     # ==> Deadlines
     # Change default deadlines for some actions.

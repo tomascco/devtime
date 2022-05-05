@@ -1,5 +1,5 @@
 class Api::HitsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  protect_from_forgery with: :null_session
 
   def create
     @hit = Hit.new(hit_params)
