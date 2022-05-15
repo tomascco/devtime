@@ -1,0 +1,14 @@
+{
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "standard": {
+      "useBundler": true,
+    }
+  },
+  "ruby.format": "standard",
+  "[ruby]": {
+    "editor.defaultFormatter": "rebornix.ruby"
+  },
+  "standard.autoFixOnSave": true,
+  "explorer.sortOrder": "mixed"
+}

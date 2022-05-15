@@ -16,7 +16,7 @@ class Api::HitsController < ApplicationController
   end
 
   def set_account
-    @account = Account.find_by_api_token(request.headers['x-extension-api-token'])
+    @account = Account.find_by_api_token(request.headers["x-extension-api-token"])
     return if @account.is_a?(Account)
 
     head(:unauthorized)

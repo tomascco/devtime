@@ -14,8 +14,8 @@ class RodauthMailer < ApplicationMailer
   end
 
   def verify_login_change(account_id, old_login, new_login, key)
-    @old_login  = old_login
-    @new_login  = new_login
+    @old_login = old_login
+    @new_login = new_login
     @email_link = rodauth.verify_login_change_url(key: email_token(account_id, key))
     @account = Account.find(account_id)
 

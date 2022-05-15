@@ -8,15 +8,15 @@ class Account < ApplicationRecord
 
   def add_api_token
     secret = ::Rails.application.secret_key_base
-    payload = { time: Time.zone.now, account_id: id }
-    self.api_token = JWT.encode(payload, secret, 'HS256')
+    payload = {time: Time.zone.now, account_id: id}
+    self.api_token = JWT.encode(payload, secret, "HS256")
     save
   end
 
   def self.find_by_api_token(api_token)
     secret = ::Rails.application.secret_key_base
-    decoded_token = JWT.decode(api_token, secret, true, { algorithm: 'HS256' })
-    account = Account.find(decoded_token[0]['account_id'])
+    decoded_token = JWT.decode(api_token, secret, true, {algorithm: "HS256"})
+    account = Account.find(decoded_token[0]["account_id"])
     return account if ActiveSupport::SecurityUtils.secure_compare(api_token, account.api_token)
 
     :invalid_token

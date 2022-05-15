@@ -17,7 +17,7 @@ class HitsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create hit" do
     assert_difference("Hit.count") do
-      post hits_url, params: { hit: { language: @hit.language, project: @hit.project, timestamp: @hit.timestamp } }
+      post hits_url, params: {hit: {language: @hit.language, project: @hit.project, timestamp: @hit.timestamp}}
     end
 
     assert_redirected_to hit_url(Hit.last)
@@ -34,7 +34,7 @@ class HitsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update hit" do
-    patch hit_url(@hit), params: { hit: { language: @hit.language, project: @hit.project, timestamp: @hit.timestamp } }
+    patch hit_url(@hit), params: {hit: {language: @hit.language, project: @hit.project, timestamp: @hit.timestamp}}
     assert_redirected_to hit_url(@hit)
   end
 
