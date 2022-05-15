@@ -86,10 +86,10 @@ class RodauthMain < Rodauth::Rails::Auth
 
     # ==> Remember Feature
     # Remember all logged in users.
-    after_login { remember_login }
+    # after_login { remember_login }
 
     # Or only remember users that have ticked a "Remember Me" checkbox on login.
-    # after_login { remember_login if param_or_nil("remember") }
+    after_login { remember_login if ActiveModel::Type::Boolean.new.cast(param_or_nil(remember_param)) }
 
     # Extend user's remember period when remembered via a cookie
     extend_remember_deadline? true
