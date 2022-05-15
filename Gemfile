@@ -73,3 +73,4 @@ end
 
 gem "rodauth-rails"
 gem "jwt"
+gem "tailwindcss-rails"
