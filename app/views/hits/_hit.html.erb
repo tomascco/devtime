@@ -1,17 +1,3 @@
-<div id="<%= dom_id hit %>">
-  <p>
-    <strong>Timestamp:</strong>
-    <%= hit.timestamp %>
-  </p>
-
-  <p>
-    <strong>Language:</strong>
-    <%= hit.language %>
-  </p>
-
-  <p>
-    <strong>Project:</strong>
-    <%= hit.project %>
-  </p>
-
-</div>
+<li class="px-6 py-2 border-b border-gray-200 w-full" id="<%= dom_id hit %>">
+  <%= hit.timestamp %> : <%= hit.project %> (<%= hit.language %>)
+</li>

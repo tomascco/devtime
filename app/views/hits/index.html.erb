@@ -1,9 +1,11 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Hits</h1>
-
-<div id="hits">
-  <% @hits.each do |hit| %>
-    <%= render hit %>
-  <% end %>
+<div class="container mx-auto flex flex-col text-center gap-2 items-center m-3">
+  <h1 class="text-xl"> Todos meus hits </h1>
+  <div class="flex justify-center">
+    <ul class="bg-white rounded-lg border border-gray-200 text-gray-900" id="hits">
+      <% @hits.each do |hit| %>
+        <%= render hit %>
+      <% end %>
+    </ul>
+  </div>
+  <%== pagy_nav(@pagy) %>
 </div>

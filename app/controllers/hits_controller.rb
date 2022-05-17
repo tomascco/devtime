@@ -1,5 +1,7 @@
 class HitsController < ApplicationController
+  include Pagy::Backend
+
   def index
-    @hits = current_account.hits
+    @pagy, @hits = pagy(current_account.hits)
   end
 end
