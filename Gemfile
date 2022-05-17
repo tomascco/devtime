@@ -78,3 +78,4 @@ end
 gem "jwt"
 gem "rodauth-rails"
 gem "tailwindcss-rails"
+gem "pagy", "~> 5.10" # omit patch digit
