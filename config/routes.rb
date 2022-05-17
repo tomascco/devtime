@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     resources :home, only: :index
     resources :hits, only: :index
+    resource :profile, only: :show
   end
 
   namespace :api do

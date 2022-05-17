@@ -1,0 +1,43 @@
+<div class="container mx-auto flex flex-col gap-5">
+  <h1 class="text-3xl">
+    My Profile
+  </h1>
+
+  <h2 class="text-xl"> Email: <%= @account.email %> </h2>
+  <div class="flex items-center border-b border-teal-500 py-2 w-1/2" data-controller="clipboard">
+    <label for="host">Host:</label>
+    <input
+      id="host"
+      class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+      type="url"
+      readonly
+      value="<%= @host %>"
+    >
+    <button
+      class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+      type="button"
+      data-action="clipboard#copy"
+    >
+      Copy ✂️
+    </button>
+    <span class="hidden py-1 px-2 text-sm text-teal-500">copied!</span>
+  </div>
+  <div class="flex items-center border-b border-teal-500 py-2 w-1/2" data-controller="clipboard">
+    <label for="api-token">API Token:</label>
+    <input
+      id="api-token"
+      class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+      type="password"
+      readonly
+      value="<%= @account.api_token %>"
+    >
+    <button
+      class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+      type="button"
+      data-action="clipboard#copy"
+    >
+      Copy ✂️
+    </button>
+    <span class="hidden py-1 px-2 text-sm text-teal-500">copied!</span>
+  </div>
+</div>
