@@ -15,7 +15,10 @@
   </head>
 
   <body>
-    <main class="container mx-auto">
+    <% if current_account.present? %>
+      <%= render partial: 'shared/navbar' %>
+    <% end %>
+    <main class="container mx-auto mt-2 px-5">
       <%= yield %>
     </main>
   </body>
