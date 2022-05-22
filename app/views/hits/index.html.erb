@@ -1,11 +1,32 @@
-<div class="container mx-auto flex flex-col text-center gap-2 items-center m-3">
-  <h1 class="text-xl"> Todos meus hits </h1>
-  <div class="flex justify-center">
-    <ul class="bg-white rounded-lg border border-gray-200 text-gray-900" id="hits">
-      <% @hits.each do |hit| %>
-        <%= render hit %>
-      <% end %>
-    </ul>
+<div class="container p-5 flex flex-col">
+  <h1 class="self-center text-2xl font-bold mb-3">All hits</h1>
+  <div class="overflow-x-auto">
+    <table class="table table-compact w-full">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Timestamp</th>
+          <th>Project</th>
+          <th>Language</th>
+        </tr>
+      </thead>
+      <tbody id="hits">
+        <% @hits.each do |hit| %>
+          <%= render hit %>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th>Timestamp</th>
+          <th>Project</th>
+          <th>Language</th>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-  <%== pagy_nav(@pagy) %>
+  <div class="self-center mt-2">
+    <%== pagy_nav(@pagy) %>
+  </div>
 </div>
+
