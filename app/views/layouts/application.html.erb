@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <% if current_account.present? %>
+    <% if rodauth.logged_in? %>
       <%= render partial: 'shared/navbar' %>
     <% end %>
     <main class="container mx-auto mt-2 px-5">
