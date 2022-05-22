@@ -4,8 +4,11 @@ export default class extends Controller {
   copy(e) {
     const container = e.target.parentElement;
     const value = container.querySelector("input").value;
-    const notificationSpan = container.querySelector("span");
+    e.target.textContent = 'Copied!';
     navigator.clipboard.writeText(value);
-    notificationSpan.classList.remove("hidden");
+
+    document.querySelectorAll('.clipboard-btn').forEach(element => {
+      if (!element.isEqualNode(e.target)) element.textContent = 'Copy ✂️';
+    });
   }
 }
