@@ -80,3 +80,4 @@ gem "rodauth-rails"
 gem "pagy", "~> 5.10" # omit patch digit
 gem "cssbundling-rails"
 gem "sidekiq"
+gem "activejob-uniqueness"
