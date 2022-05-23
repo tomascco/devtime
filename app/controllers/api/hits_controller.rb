@@ -8,6 +8,7 @@ class Api::HitsController < ApplicationController
 
     respond_to do |format|
       if @hit.save
+        Summary::Build.perform_later(account: @account)
         format.json { render json: @hit.to_json, status: :created }
       else
         format.json { render json: @hit.errors, status: :unprocessable_entity }
