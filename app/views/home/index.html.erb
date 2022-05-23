@@ -1,9 +1,11 @@
-<div class="stats shadow">
-  <div class="stat">
-    <div class="stat-title">Total Time Today</div>
-    <div class="stat-value"><%= @today_summary.total_time.inspect %></div>
-    <div class="stat-desc">
-      <%= @yesterday_summary.total_time.inspect %> yesterday
+<% if @yesterday_summary && @today_summary %>
+  <div class="stats shadow">
+    <div class="stat">
+      <div class="stat-title">Total Time Today</div>
+      <div class="stat-value"><%= @today_summary.total_time.inspect %></div>
+      <div class="stat-desc">
+        <%= @yesterday_summary.total_time.inspect %> yesterday
+      </div>
     </div>
   </div>
-</div>
+<% end %>
