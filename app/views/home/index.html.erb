@@ -1,5 +1,9 @@
-<%= link_to 'My hits', hits_path %>
-<br>
-<%= link_to 'Profile', profile_path %>
-<br>
-<%= button_to "Sign out", rodauth.logout_path, method: :post %>
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-title">Total Time Today</div>
+    <div class="stat-value"><%= @today_summary.total_time.inspect %></div>
+    <div class="stat-desc">
+      <%= @yesterday_summary.total_time.inspect %> yesterday
+    </div>
+  </div>
+</div>
