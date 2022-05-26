@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_05_233148) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_26_230815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -56,9 +56,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_05_233148) do
     t.index ["account_id"], name: "index_hits_on_account_id"
   end
 
+  create_table "summaries", force: :cascade do |t|
+    t.date "day", null: false
+    t.interval "total_time", default: "PT0S", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "raw_hits"
+    t.index ["account_id"], name: "index_summaries_on_account_id"
+    t.index ["raw_hits"], name: "index_summaries_on_raw_hits", using: :gin
+  end
+
   add_foreign_key "account_login_change_keys", "accounts", column: "id"
   add_foreign_key "account_password_reset_keys", "accounts", column: "id"
   add_foreign_key "account_remember_keys", "accounts", column: "id"
   add_foreign_key "account_verification_keys", "accounts", column: "id"
   add_foreign_key "hits", "accounts"
+  add_foreign_key "summaries", "accounts"
 end
