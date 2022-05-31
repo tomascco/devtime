@@ -1,3 +1,5 @@
+<div data-controller="echarts" id="dailyTimeChart" class="w-full h-96" data-echarts-source-value=<%= @week_summaries.to_json %>></div>
+
 <% if @yesterday_summary && @today_summary %>
   <div class="stats shadow">
     <div class="stat">
