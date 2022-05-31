@@ -4,8 +4,6 @@ class Account < ApplicationRecord
 
   has_many :hits, dependent: :destroy
 
-  after_create :add_api_token
-
   def add_api_token
     secret = ::Rails.application.secret_key_base
     payload = {time: Time.zone.now, account_id: id}
