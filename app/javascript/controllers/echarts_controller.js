@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import * as echarts from 'echarts';
-import { formatDistance } from 'date-fns'
+import { format, parseISO, intervalToDuration, formatDuration  } from 'date-fns'
 
 export default class extends Controller {
   static values = {
@@ -10,24 +10,22 @@ export default class extends Controller {
   connect() {
     const dailyTimeChart  = echarts.init(document.getElementById('dailyTimeChart'));
 
-    console.log(formatDistance(0, 2000 * 1000, { includeSeconds: true }))
-
     dailyTimeChart.setOption({
       title: {
-        text: 'Total Time in last 7 days'
+        text: 'Total Time in last 7 days',
+        left: 'center',
       },
       xAxis: {
-        data: this.sourceValue.map((value) => value[0])
+        data: this.sourceValue.map((value) => format(parseISO(value[0]), 'MMM d'))
       },
-      yAxis: {},
+      yAxis: { show: false },
       series: {
         type: 'bar',
         data: this.sourceValue.map((value) => value[1])
       },
       tooltip: {
-        // Means disable default "show/hide rule".
         trigger: 'item',
-        formatter: (params) => formatDistance(0, params.value * 1000, { includeSeconds: true })
+        formatter: (params) => formatDuration(intervalToDuration({ start: 0, end: params.value * 1000 }))
       }
     })
   }
