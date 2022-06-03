@@ -10,7 +10,7 @@ class Summary::Build < ApplicationJob
     sum = 0
     last_hit_time = nil
     summary.raw_hits.each do |raw_hit|
-      hit = Hit.new(raw_hit.symbolize_keys)
+      hit = Hit.new(raw_hit)
       if last_hit_time.nil?
         last_hit_time = hit.timestamp
         next
