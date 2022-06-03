@@ -4,15 +4,13 @@ class Api::HitsController < ApplicationController
 
   def create
     @hit = Hit.new(hit_params)
-    @hit.account = @account
-
-    respond_to do |format|
-      if @hit.save
-        Summary::Build.perform_later(account: @account)
-        format.json { render json: @hit.to_json, status: :created }
-      else
-        format.json { render json: @hit.errors, status: :unprocessable_entity }
-      end
+    if @hit.valid?
+      summary = Summary.find_or_create_by(account_id: @account.id, day: Time.zone.today)
+      Summary.where(id: summary.id).update_all(["raw_hits = jsonb_insert(raw_hits, '{-1}', ?, true)", @hit.to_json])
+      Summary::Build.perform_later(account: @account)
+      head 201
+    else
+      head 422
     end
   end
 
