@@ -3,14 +3,16 @@ class Api::HitsController < ApplicationController
   before_action :set_account
 
   def create
-    @hit = Hit.new(hit_params)
-    if @hit.valid?
-      summary = Summary.find_or_create_by(account_id: @account.id, day: Time.zone.today)
-      Summary.where(id: summary.id).update_all(["raw_hits = jsonb_insert(raw_hits, '{-1}', ?, true)", @hit.to_json])
-      Summary::Build.perform_later(account: @account)
-      head 201
-    else
-      head 422
+    Time.use_zone(@account.timezone) do
+      @hit = Hit.new(hit_params)
+      if @hit.valid?
+        summary = Summary.find_or_create_by(account_id: @account.id, day: Time.zone.today)
+        Summary.where(id: summary.id).update_all(["raw_hits = jsonb_insert(raw_hits, '{-1}', ?, true)", @hit.to_json])
+        Summary::Build.perform_later(account: @account)
+        head 201
+      else
+        head 422
+      end
     end
   end
 

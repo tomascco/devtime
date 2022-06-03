@@ -27,4 +27,12 @@
       </button>
     </div>
   </div>
+
+  <%= form_with(model: @account, url: profile_path) do |f| %>
+    <div class="form-control w-full mb-2">
+      <%= f.label :timezone, class: "label" %>
+      <%= f.time_zone_select :timezone, nil, {}, class: "select select-primary" %>
+    </div>
+    <%= f.submit "Save", class: "btn btn-primary w-full" %>
+  <% end %>
 </div>

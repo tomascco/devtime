@@ -3,7 +3,7 @@ class Summary::Build < ApplicationJob
   unique :until_executed, on_conflict: :log
 
   MAX_INTERVAL = 900 # 15 minutes
-  def perform(account:, day: Date.current)
+  def perform(account:, day: Time.zone.today)
     summary = Summary.find_by(account_id: account.id, day: day)
     return if summary.nil?
 
