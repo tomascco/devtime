@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_002351) do
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "raw_hits", default: "[]"
+    t.jsonb "raw_hits", default: []
     t.index ["account_id"], name: "index_summaries_on_account_id"
     t.index ["raw_hits"], name: "index_summaries_on_raw_hits", using: :gin
   end
