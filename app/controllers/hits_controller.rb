@@ -1,7 +1,5 @@
 class HitsController < ApplicationController
-  include Pagy::Backend
-
   def index
-    @pagy, @hits = pagy(current_account.hits.order(created_at: :desc))
+    @hits = Summary.where(account: current_account, day: Time.zone.today).pluck(:raw_hits).first
   end
 end

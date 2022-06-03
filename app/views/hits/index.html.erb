@@ -1,10 +1,9 @@
 <div class="container p-5 flex flex-col">
-  <h1 class="self-center text-2xl font-bold mb-3">All hits</h1>
+  <h1 class="self-center text-2xl font-bold mb-3">Today hits</h1>
   <div class="overflow-x-auto">
     <table class="table table-compact w-full">
       <thead>
         <tr>
-          <th></th>
           <th>Timestamp</th>
           <th>Project</th>
           <th>Language</th>
@@ -12,21 +11,10 @@
       </thead>
       <tbody id="hits">
         <% @hits.each do |hit| %>
-          <%= render hit %>
+          <%= render partial: 'hits/hit', locals: { hit: Hit.new(hit) } %>
         <% end %>
       </tbody>
-      <tfoot>
-        <tr>
-          <th></th>
-          <th>Timestamp</th>
-          <th>Project</th>
-          <th>Language</th>
-        </tr>
-      </tfoot>
     </table>
-  </div>
-  <div class="self-center mt-2">
-    <%== pagy_nav(@pagy) %>
   </div>
 </div>
 

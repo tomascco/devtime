@@ -6,10 +6,10 @@ class Hit
   attr_reader :language
 
   def initialize(params)
-    @language = params[:language]
-    @project = params[:project]
+    @language = params["language"]
+    @project = params["project"]
     begin
-      @timestamp = Time.parse(params[:timestamp])
+      @timestamp = Time.parse(params["timestamp"])
     rescue
       @timestamp = nil
     end
