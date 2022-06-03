@@ -1,13 +1,21 @@
-<div data-controller="echarts" id="dailyTimeChart" class="w-full h-96" data-echarts-source-value=<%= @week_summaries.to_json %>></div>
-
-<% if @yesterday_summary && @today_summary %>
-  <div class="stats shadow">
-    <div class="stat">
-      <div class="stat-title">Total Time Today</div>
-      <div class="stat-value"><%= @today_summary.total_time.inspect %></div>
-      <div class="stat-desc">
-        <%= @yesterday_summary.total_time.inspect %> yesterday
+<div class="flex flex-row mt-10">
+  <div
+    data-controller="echarts"
+    id="dailyTimeChart"
+    class="basis-1/2 h-96"
+    data-echarts-source-value=<%= @week_summaries.to_json %>
+  ></div>
+  <div class="basis-1/2">
+    <% if @yesterday_summary && @today_summary %>
+      <div class="stats shadow">
+        <div class="stat">
+          <div class="stat-title">Total Time Today</div>
+          <div class="stat-value"><%= @today_summary.total_time.inspect %></div>
+          <div class="stat-desc">
+            <%= @yesterday_summary.total_time.inspect %> yesterday
+          </div>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
-<% end %>
+</div>
