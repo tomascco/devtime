@@ -18,6 +18,7 @@
       id="dailyTimeChart"
       class="basis-1/2 h-96"
       data-echarts-source-value=<%= @week_summaries.to_json %>
+      data-echarts-range-value="<%= session[:default_range].titleize.downcase %>"
     ></div>
     <div class="basis-1/2">
       <% if @yesterday_summary && @today_summary %>

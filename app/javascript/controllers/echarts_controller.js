@@ -4,7 +4,8 @@ import { format, parseISO, intervalToDuration, formatDuration  } from 'date-fns'
 
 export default class extends Controller {
   static values = {
-    source: Array
+    source: Array,
+    range: String
   }
 
   connect() {
@@ -12,7 +13,7 @@ export default class extends Controller {
 
     dailyTimeChart.setOption({
       title: {
-        text: 'Total Time in last 7 days',
+        text: `Total Time in ${this.rangeValue}`,
         left: 'center',
       },
       xAxis: {
