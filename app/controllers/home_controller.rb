@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     if params[:range] && ApplicationHelper::TIME_RANGES[params[:range]]
       session[:default_range] = params[:range]
     end
-    session[:default_range] ||= :last_seven_days
+    session[:default_range] ||= "last_seven_days"
     ApplicationHelper::TIME_RANGES[session[:default_range]].call
   end
 end
