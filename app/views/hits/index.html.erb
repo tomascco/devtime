@@ -1,5 +1,9 @@
 <div class="container p-5 flex flex-col">
-  <h1 class="self-center text-2xl font-bold mb-3">Today hits</h1>
+  <div class="flex justify-between">
+    <%= link_to "< #{l(@day.yesterday, format: :short)}", hits_path(day: @day.yesterday), class: "btn btn-ghost" %>
+    <h1 class="self-center text-2xl font-bold mb-3"><%= @day %> hits</h1>
+    <%= link_to "#{l(@day.tomorrow, format: :short)} >", hits_path(day: @day.tomorrow), class: "btn btn-ghost" %>
+  </div>
   <div class="overflow-x-auto">
     <table class="table table-compact w-full">
       <thead>
