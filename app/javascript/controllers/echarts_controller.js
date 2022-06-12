@@ -34,7 +34,7 @@ export default class extends Controller {
       },
       tooltip: {
         trigger: 'item',
-        formatter: (params) => formatDuration(intervalToDuration({ start: 0, end: params.value * 1000 }))
+        formatter: (params) => this.formatDuration(params.value)
       }
     })
   }
