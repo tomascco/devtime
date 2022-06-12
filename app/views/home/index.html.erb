@@ -12,26 +12,16 @@
       %>
     <% end %>
   </div>
-  <div class="flex flex-row mt-10">
-    <div
-      data-controller="echarts"
-      id="dailyTimeChart"
-      class="basis-1/2 h-96"
-      data-echarts-source-value=<%= @range_summaries.to_json %>
-      data-echarts-range-value="<%= session[:default_range].titleize.downcase %>"
-    ></div>
-    <div class="basis-1/2">
-      <% if @yesterday_summary && @today_summary %>
-        <div class="stats shadow">
-          <div class="stat">
-            <div class="stat-title">Total Time Today</div>
-            <div class="stat-value"><%= @today_summary.total_time.inspect %></div>
-            <div class="stat-desc">
-              <%= @yesterday_summary.total_time.inspect %> yesterday
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
+  <div
+    class="flex flex-row mt-10"
+    data-controller="echarts"
+    data-echarts-daily-value=<%= @range_summaries.to_json %>
+    data-echarts-range-value="<%= session[:default_range].titleize.downcase %>"
+    data-echarts-today-total-value="<%= @today_summary.total_time %>"
+    data-echarts-yesterday-total-value="<%= @yesterday_summary.total_time %>"
+    data-echarts-period-total-value="<%= @range_summaries.transpose[1].sum(0.0) / @range_summaries.size %>"
+  >
+    <div id="dailyTimeChart" class="basis-1/2 h-96"></div>
+    <div id="totalsChart" class="basis-1/2"></div>
   </div>
 </div>
