@@ -7,7 +7,9 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 import ClipboardController from "./clipboard_controller"
 import HomeChartsController from "./home_charts_controller"
+import HitsChartsController from "./hits_charts_controller"
 
 application.register("hello", HelloController)
 application.register("clipboard", ClipboardController)
 application.register("home-charts", HomeChartsController)
+application.register("hits-charts", HitsChartsController)

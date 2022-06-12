@@ -4,6 +4,12 @@
     <h1 class="self-center text-2xl font-bold mb-3"><%= @day %> hits</h1>
     <%= link_to "#{l(@day.tomorrow, format: :short)} >", hits_path(day: @day.tomorrow), class: "btn btn-ghost" %>
   </div>
+  <div
+    class="w-full h-96"
+    data-controller="hits-charts"
+    data-hits-charts-hits-value="<%= @hits.to_json %>"
+    id="hits-timeline"
+  ></div>
   <div class="overflow-x-auto">
     <table class="table table-compact w-full">
       <thead>
