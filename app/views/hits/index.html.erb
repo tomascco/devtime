@@ -15,7 +15,12 @@
       </thead>
       <tbody id="hits">
         <% @hits.each do |hit| %>
-          <%= render partial: 'hits/hit', locals: { hit: Hit.new(hit) } %>
+          <% hit_obj = Hit.new(hit) %>
+          <tr>
+            <td><%= hit_obj.timestamp %></td>
+            <td><%= hit_obj.project %></td>
+            <td><%= hit_obj.language %></td>
+          </tr>
         <% end %>
       </tbody>
     </table>
