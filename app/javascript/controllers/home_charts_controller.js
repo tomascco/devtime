@@ -14,6 +14,7 @@ export default class extends Controller {
   connect() {
     this.buildDailyTimeChart();
     this.buildTotalsChart();
+    this.buildLanguagesPieChart();
   }
 
   buildDailyTimeChart() {
@@ -113,6 +114,63 @@ export default class extends Controller {
             },
 
           ]
+        }
+      ]
+    })
+  }
+
+  buildLanguagesPieChart() {
+    const data = {};
+    this.dailyValue.forEach(day => {
+      const languages = day[3];
+      if (!languages) return;
+      Object.entries(languages).forEach(([key, value]) => {
+        data[key] = (data[key] || 0) + value;
+      })
+    });
+    const dataArray =  Object.entries(data).map(([key, value]) => ({ name: key, value }));
+    const languagesPieChart  = echarts.init(document.getElementById('languagesPieChart'));
+
+    languagesPieChart.setOption({
+      title: {
+        text: 'Total by language in period',
+        left: 'center',
+        top: '0'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: (params) => `${params.data.name} <br/> ${this.formatDuration(params.value)} (${params.percent}%)`
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: 'Language',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
+          label: {
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: '30',
+              fontWeight: 'bold'
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: dataArray
         }
       ]
     })
