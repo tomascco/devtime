@@ -143,13 +143,16 @@ export default class extends Controller {
       },
       legend: {
         orient: 'vertical',
-        left: 'left'
+        top: '10%',
+        right: '10%',
+        type: 'scroll',
       },
       series: [
         {
           name: 'Language',
           type: 'pie',
           radius: ['40%', '70%'],
+          center: ['30%', '50%'],
           avoidLabelOverlap: false,
           itemStyle: {
             borderRadius: 10,
