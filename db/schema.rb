@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_03_025412) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_14_225906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -64,7 +64,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_025412) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "raw_hits", default: []
+    t.jsonb "languages"
+    t.jsonb "projects"
     t.index ["account_id"], name: "index_summaries_on_account_id"
+    t.index ["languages"], name: "index_summaries_on_languages", using: :gin
+    t.index ["projects"], name: "index_summaries_on_projects", using: :gin
     t.index ["raw_hits"], name: "index_summaries_on_raw_hits", using: :gin
   end
 
