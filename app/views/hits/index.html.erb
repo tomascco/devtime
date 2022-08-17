@@ -5,7 +5,7 @@
     <%= link_to "#{l(@day.tomorrow, format: :short)} >", hits_path(day: @day.tomorrow), class: "btn btn-ghost" %>
   </div>
   <div
-    class="w-full h-96"
+    class="w-full h-[500px]"
     data-controller="hits-charts"
     data-hits-charts-hits-value="<%= @hits.to_json %>"
     id="hits-timeline"

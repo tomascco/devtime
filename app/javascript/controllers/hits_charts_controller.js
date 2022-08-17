@@ -50,7 +50,8 @@ export default class extends Controller {
         }
       ],
       grid: {
-        height: 300
+        height: 300,
+        containLabel: true
       },
       xAxis: {
         min: 0,
