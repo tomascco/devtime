@@ -19,7 +19,7 @@
     data-home-charts-range-value="<%= session[:default_range].titleize.downcase %>"
     data-home-charts-today-total-value="<%= @today_summary.total_time %>"
     data-home-charts-yesterday-total-value="<%= @yesterday_summary.total_time %>"
-    data-home-charts-period-total-value="<%= @range_summaries.transpose[1].sum(0.0) / @range_summaries.size %>"
+    data-home-charts-period-total-value="<%= @range_summaries.transpose[1] && @range_summaries.transpose[1].sum(0.0) / @range_summaries.size %>"
   >
     <div id="dailyTimeChart" class="w-full lg:col-span-2 h-96"></div>
     <div id="totalsChart" class="w-full h-96"></div>
