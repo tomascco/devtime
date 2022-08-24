@@ -1,7 +1,10 @@
 <div align="center">
   <br>
-  <h1>⌨️ DevTime ⏲️</h1>
-  <strong>active coding time data for developers</strong>
+  <img src="devtime.png" alt="Devtime Logo" width="50%"/>
+  <br>
+  <h3>
+    <strong>active coding time data for developers</strong>
+  </h3>
 </div>
 <br>
 
@@ -11,7 +14,7 @@ DevTime is a tool for track how much time developers spend while coding on their
 
 - ⏲️ It tracks how much time you spend in each day of the week
 - ↔️ It compares how much time you spend today against your week average
-- ☀️🌄🌜 It tracks your activity thought entire day , so you can discover the hour that you produce more code
+- ☀️🌄🌜 It tracks your activity throughout the day, so you can discover the hour that you produce more code
 - And many more features are coming 🚀...
 
 ## Instalation
