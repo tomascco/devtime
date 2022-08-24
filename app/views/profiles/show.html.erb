@@ -9,8 +9,8 @@
       <span class="label-text">Host</span>
     </label>
     <div class="input-group w-full">
-      <input readonly type="url" value="<%= @host %>" class="input input-bordered w-full" />
-      <button id="host-copy-button" type="button" class="btn clipboard-btn" data-action="clipboard#copy">
+      <input id="host-input" readonly type="url" value="" class="input input-bordered w-full" />
+      <button type="button" class="btn clipboard-btn" data-action="clipboard#copy">
         Copy ✂️
       </button>
     </div>
@@ -22,7 +22,7 @@
     </label>
     <div class="input-group w-full">
       <input readonly type="password" value="<%= @account.api_token %>" class="input input-bordered w-full" />
-      <button id="token-copy-button" type="button" class="btn clipboard-btn" data-action="clipboard#copy">
+      <button type="button" class="btn clipboard-btn" data-action="clipboard#copy">
         Copy ✂️
       </button>
     </div>
@@ -36,3 +36,7 @@
     <%= f.submit "Save", class: "btn btn-primary w-full" %>
   <% end %>
 </div>
+
+<script>
+  document.getElementById('host-input').value = window.location.origin;
+</script>
