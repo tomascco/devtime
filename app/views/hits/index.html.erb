@@ -10,9 +10,9 @@
     data-hits-charts-hits-value="<%= @hits.to_json %>"
     id="hits-timeline"
   ></div>
-  <div class="overflow-x-auto">
+  <div class="overflow-x-auto max-h-[500px]">
     <table class="table table-compact w-full">
-      <thead>
+      <thead class="sticky top-0">
         <tr>
           <th>Timestamp</th>
           <th>Project</th>
