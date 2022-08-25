@@ -20,6 +20,18 @@ export default class extends Controller {
   buildDailyTimeChart() {
     const dailyTimeChart  = echarts.init(document.getElementById('dailyTimeChart'));
 
+    const totalTimeByProject = {};
+    this.dailyValue.forEach(day => {
+      Object.entries(day[2]).forEach(([key]) => {
+        totalTimeByProject[key] = Array(this.dailyValue.length).fill(null);
+      })
+    });
+    this.dailyValue.forEach((day, index) => {
+      Object.entries(day[2]).forEach(([key, value]) => {
+        totalTimeByProject[key][index] = value;
+      })
+    });
+
     dailyTimeChart.setOption({
       title: {
         text: `Total Time in ${this.rangeValue}`,
@@ -29,14 +41,40 @@ export default class extends Controller {
         data: this.dailyValue.map((value) => format(parseISO(value[0]), 'MMM d'))
       },
       yAxis: { show: false },
-      series: {
-        type: 'bar',
-        data: this.dailyValue.map((value) => value[1])
-      },
+      series: [
+        {
+          name: 'total',
+          type: 'line',
+          data: this.dailyValue.map((value) => value[1]),
+          tooltip: {
+            valueFormatter: (value) => value && this.formatDuration(value)
+          }
+        },
+        ...Object.entries(totalTimeByProject).map(([key, value]) => ({
+          type: 'bar',
+          name: key,
+          stack: 'total',
+          data: value,
+          emphasis: {
+            focus: 'series'
+          },
+          areaStyle: {},
+          tooltip: {
+            valueFormatter: (value) => value && this.formatDuration(value)
+          },
+          connectNulls: false
+        }))
+      ],
       tooltip: {
-        trigger: 'item',
-        formatter: (params) => this.formatDuration(params.value)
-      }
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+      },
+
     })
   }
 
