@@ -36,7 +36,7 @@ export default class extends Controller {
 
     dailyTimeChart.setOption({
       title: {
-        text: `Total Time in ${this.rangeValue}`,
+        text: `Total Time in ${this.rangeValue} (per project)`,
         left: 'center',
       },
       xAxis: {
