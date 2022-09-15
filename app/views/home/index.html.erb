@@ -21,8 +21,9 @@
     data-home-charts-yesterday-total-value="<%= @yesterday_summary.total_time %>"
     data-home-charts-period-total-value="<%= @range_summaries.transpose[1] && @range_summaries.transpose[1].sum(0.0) / @range_summaries.size %>"
   >
-    <div id="dailyTimeChart" class="w-full lg:col-span-2 h-96"></div>
-    <div id="totalsChart" class="w-full h-96"></div>
+    <div id="totalsChart" class="w-full lg:col-span-3 h-96"></div>
+    <div id="dailyTimePerProjectChart" class="w-full lg:col-span-2 h-96"></div>
+    <div id="dailyTimePerLanguageChart" class="w-full lg:col-span-2 h-96"></div>
     <div id="languagesPieChart" class="w-full h-96"></div>
   </div>
 </div>

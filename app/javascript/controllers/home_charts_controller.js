@@ -12,13 +12,14 @@ export default class extends Controller {
   }
 
   connect() {
-    this.buildDailyTimeChart();
+    this.buildDailyTimePerProjectChart();
+    this.buildDailyTimePerLanguageChart();
     this.buildTotalsChart();
     this.buildLanguagesPieChart();
   }
 
-  buildDailyTimeChart() {
-    const dailyTimeChart  = echarts.init(document.getElementById('dailyTimeChart'));
+  buildDailyTimePerProjectChart() {
+    const dailyTimeChart  = echarts.init(document.getElementById('dailyTimePerProjectChart'));
 
     const totalTimeByProject = {};
     this.dailyValue.forEach(day => {
@@ -75,6 +76,66 @@ export default class extends Controller {
         },
       },
 
+    })
+  }
+
+  buildDailyTimePerLanguageChart() {
+    const dailyTimeChart  = echarts.init(document.getElementById('dailyTimePerLanguageChart'));
+
+    const totalTimeByLang = {};
+    this.dailyValue.forEach(day => {
+      Object.entries(day[3]).forEach(([key]) => {
+        totalTimeByLang[key] = Array(this.dailyValue.length).fill(null);
+      })
+    });
+    this.dailyValue.forEach((day, index) => {
+      Object.entries(day[3]).forEach(([key, value]) => {
+        totalTimeByLang[key][index] = value;
+      })
+    });
+
+    dailyTimeChart.setOption({
+      title: {
+        text: `Total Time in ${this.rangeValue} (per language)`,
+        left: 'center',
+      },
+      xAxis: {
+        data: this.dailyValue.map((value) => format(parseISO(value[0]), 'MMM d'))
+      },
+      yAxis: { show: false },
+      series: [
+        {
+          name: 'total',
+          type: 'line',
+          data: this.dailyValue.map((value) => value[1]),
+          tooltip: {
+            valueFormatter: (value) => value && this.formatDuration(value)
+          }
+        },
+        ...Object.entries(totalTimeByLang).map(([key, value]) => ({
+          type: 'bar',
+          name: key,
+          stack: 'total',
+          data: value,
+          emphasis: {
+            focus: 'series'
+          },
+          areaStyle: {},
+          tooltip: {
+            valueFormatter: (value) => value && this.formatDuration(value)
+          },
+          connectNulls: false
+        }))
+      ],
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        },
+      },
     })
   }
 
@@ -171,7 +232,7 @@ export default class extends Controller {
 
     languagesPieChart.setOption({
       title: {
-        text: 'Total by language in period',
+        text: 'Total in period (per language)',
         left: 'center',
         top: '0'
       },
