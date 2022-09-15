@@ -16,6 +16,7 @@ export default class extends Controller {
     this.buildDailyTimePerLanguageChart();
     this.buildTotalsChart();
     this.buildLanguagesPieChart();
+    this.buildProjectsPieChart();
   }
 
   buildDailyTimePerProjectChart() {
@@ -143,7 +144,7 @@ export default class extends Controller {
     const totalsChart = echarts.init(document.getElementById('totalsChart'));
     totalsChart.setOption({
       title: {
-        text: 'Total Times',
+        text: 'Total Time',
         left: 'center',
       },
       series: [
@@ -266,6 +267,66 @@ export default class extends Controller {
             label: {
               show: true,
               fontSize: '30',
+              fontWeight: 'bold'
+            }
+          },
+          labelLine: {
+            show: false
+          },
+          data: dataArray
+        }
+      ]
+    })
+  }
+
+  buildProjectsPieChart() {
+    const data = {};
+    this.dailyValue.forEach(day => {
+      const languages = day[2];
+      if (!languages) return;
+      Object.entries(languages).forEach(([key, value]) => {
+        data[key] = (data[key] || 0) + value;
+      })
+    });
+    const dataArray =  Object.entries(data).map(([key, value]) => ({ name: key, value }));
+    const projectsPieChart  = echarts.init(document.getElementById('projectsPieChart'));
+
+    projectsPieChart.setOption({
+      title: {
+        text: 'Total in period (per project)',
+        left: 'center',
+        top: '0'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: (params) => `${params.data.name} <br/> ${this.formatDuration(params.value)} (${params.percent}%)`
+      },
+      legend: {
+        orient: 'vertical',
+        top: '10%',
+        right: '10%',
+        type: 'scroll',
+      },
+      series: [
+        {
+          name: 'Language',
+          type: 'pie',
+          radius: ['40%', '70%'],
+          center: ['30%', '50%'],
+          avoidLabelOverlap: false,
+          itemStyle: {
+            borderRadius: 10,
+            borderColor: '#fff',
+            borderWidth: 2
+          },
+          label: {
+            show: false,
+            position: 'center'
+          },
+          emphasis: {
+            label: {
+              show: true,
+              fontSize: '16',
               fontWeight: 'bold'
             }
           },
