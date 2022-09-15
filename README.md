@@ -21,9 +21,37 @@ DevTime is a tool for track how much time developers spend while coding on their
 You can use the application hosted in Heroku. It's in beta, so you can lose all data tracked in the official release.
 
 [devtimer.herokuapp.com](https://devtimer.herokuapp.com/)
-## Instalation
+## Installation
+
+You can run your own server by cloning the repository. It is also good because all data being stored belongs to you!
+
+Clone the project
+
+```
+git clone https://github.com/mtayllan/devtime.git
+```
+
+### Setup with Docker
 
 [Docker Dev Instructions](.dockerdev)
+
+### Normal setup
+We use Ruby on Rails, PostgreSQL and Redis, thus you need to have a environment that can run Ruby on Rails + PostgreSQL applications.
+
+Setup Environment Variables by copying the .env.example file and replacing with environment files.
+```
+HOST='localhost'
+PORT='3000'
+```
+Make sure your PostgreSQL instance and Redis service are running, then:
+```
+bundle install
+rails db:setup
+```
+Then to run the server use:
+```
+./bin/dev
+```
 
 ## Extension
 
