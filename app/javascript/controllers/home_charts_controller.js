@@ -12,15 +12,15 @@ export default class extends Controller {
   }
 
   connect() {
-    this.buildDailyTimePerProjectChart();
-    this.buildDailyTimePerLanguageChart();
-    this.buildTotalsChart();
-    this.buildLanguagesPieChart();
-    this.buildProjectsPieChart();
+    this.buildDailyTimePerProjectChart('dailyTimePerProjectChart');
+    this.buildDailyTimePerLanguageChart('dailyTimePerLanguageChart');
+    this.buildTotalsChart('totalsChart');
+    this.buildLanguagesPieChart('languagesPieChart');
+    this.buildProjectsPieChart('projectsPieChart');
   }
 
-  buildDailyTimePerProjectChart() {
-    const dailyTimeChart  = echarts.init(document.getElementById('dailyTimePerProjectChart'));
+  buildDailyTimePerProjectChart(elementId) {
+    const dailyTimeChart  = echarts.init(document.getElementById(elementId));
 
     const totalTimeByProject = {};
     this.dailyValue.forEach(day => {
@@ -78,10 +78,18 @@ export default class extends Controller {
       },
 
     })
+
+    if (elementId !== 'fullscreenChart') {
+      dailyTimeChart.on('dblclick', () => {
+        echarts.dispose(document.getElementById('fullscreenChart'));
+        document.getElementById('trigger-modal').click();
+        this.buildDailyTimePerLanguageChart('fullscreenChart');
+      })
+    }
   }
 
-  buildDailyTimePerLanguageChart() {
-    const dailyTimeChart  = echarts.init(document.getElementById('dailyTimePerLanguageChart'));
+  buildDailyTimePerLanguageChart(elementId) {
+    const dailyTimeChart  = echarts.init(document.getElementById(elementId));
 
     const totalTimeByLang = {};
     this.dailyValue.forEach(day => {
@@ -138,10 +146,18 @@ export default class extends Controller {
         },
       },
     })
+
+    if (elementId !== 'fullscreenChart') {
+      dailyTimeChart.on('dblclick', () => {
+        echarts.dispose(document.getElementById('fullscreenChart'));
+        document.getElementById('trigger-modal').click();
+        this.buildDailyTimePerLanguageChart('fullscreenChart');
+      })
+    }
   }
 
-  buildTotalsChart() {
-    const totalsChart = echarts.init(document.getElementById('totalsChart'));
+  buildTotalsChart(elementId) {
+    const totalsChart = echarts.init(document.getElementById(elementId));
     totalsChart.setOption({
       title: {
         text: 'Total Time',
@@ -217,9 +233,17 @@ export default class extends Controller {
         }
       ]
     })
+
+    if (elementId !== 'fullscreenChart') {
+      totalsChart.on('dblclick', () => {
+        echarts.dispose(document.getElementById('fullscreenChart'));
+        document.getElementById('trigger-modal').click();
+        this.buildTotalsChart('fullscreenChart');
+      })
+    }
   }
 
-  buildLanguagesPieChart() {
+  buildLanguagesPieChart(elementId) {
     const data = {};
     this.dailyValue.forEach(day => {
       const languages = day[3];
@@ -229,7 +253,7 @@ export default class extends Controller {
       })
     });
     const dataArray =  Object.entries(data).map(([key, value]) => ({ name: key, value }));
-    const languagesPieChart  = echarts.init(document.getElementById('languagesPieChart'));
+    const languagesPieChart  = echarts.init(document.getElementById(elementId));
 
     languagesPieChart.setOption({
       title: {
@@ -277,9 +301,17 @@ export default class extends Controller {
         }
       ]
     })
+
+    if (elementId !== 'fullscreenChart') {
+      languagesPieChart.on('dblclick', () => {
+        echarts.dispose(document.getElementById('fullscreenChart'));
+        document.getElementById('trigger-modal').click();
+        this.buildLanguagesPieChart('fullscreenChart');
+      })
+    }
   }
 
-  buildProjectsPieChart() {
+  buildProjectsPieChart(elementId) {
     const data = {};
     this.dailyValue.forEach(day => {
       const languages = day[2];
@@ -289,7 +321,7 @@ export default class extends Controller {
       })
     });
     const dataArray =  Object.entries(data).map(([key, value]) => ({ name: key, value }));
-    const projectsPieChart  = echarts.init(document.getElementById('projectsPieChart'));
+    const projectsPieChart  = echarts.init(document.getElementById(elementId));
 
     projectsPieChart.setOption({
       title: {
@@ -337,6 +369,14 @@ export default class extends Controller {
         }
       ]
     })
+
+    if (elementId !== 'fullscreenChart') {
+      projectsPieChart.on('dblclick', () => {
+        echarts.dispose(document.getElementById('fullscreenChart'));
+        document.getElementById('trigger-modal').click();
+        this.buildProjectsPieChart('fullscreenChart');
+      })
+    }
   }
 
   formatDuration(duration) {
