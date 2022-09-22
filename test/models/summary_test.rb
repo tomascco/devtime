@@ -1,7 +1,7 @@
 require "test_helper"
 
 class SummaryTest < ActiveSupport::TestCase
-  test "must belongt to account" do
+  test "must belong to account" do
     summary = Summary.new(account: nil)
 
     refute summary.valid?
