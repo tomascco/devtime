@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_224411) do
   end
 
   create_table "languages", force: :cascade do |t|
-    t.string "names", null: false, array: true
+    t.string "name", null: false
     t.string "hex_color", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
