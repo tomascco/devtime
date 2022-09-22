@@ -12,4 +12,18 @@ class LanguageTest < ActiveSupport::TestCase
 
     refute language.valid?
   end
+
+  test ".all_in_hash" do
+    Language.insert_all([
+      {name: "ruby", hex_color: "fff"},
+      {name: "html", hex_color: "000"}
+    ])
+
+    languages_hash = Language.all_in_hash
+
+    assert_equal languages_hash, {
+      "ruby" => "fff",
+      "html" => "000"
+    }
+  end
 end

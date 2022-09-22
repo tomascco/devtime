@@ -8,7 +8,8 @@ export default class extends Controller {
     range: String,
     todayTotal: Number,
     yesterdayTotal: Number,
-    periodTotal: Number
+    periodTotal: Number,
+    languages: Object
   }
 
   connect() {
@@ -83,7 +84,7 @@ export default class extends Controller {
       dailyTimeChart.on('dblclick', () => {
         echarts.dispose(document.getElementById('fullscreenChart'));
         document.getElementById('trigger-modal').click();
-        this.buildDailyTimePerLanguageChart('fullscreenChart');
+        this.buildDailyTimePerProjectChart('fullscreenChart');
       })
     }
   }
@@ -133,7 +134,8 @@ export default class extends Controller {
           tooltip: {
             valueFormatter: (value) => value && this.formatDuration(value)
           },
-          connectNulls: false
+          connectNulls: false,
+          itemStyle: { color: this.languagesValue[key] }
         }))
       ],
       tooltip: {
@@ -252,7 +254,9 @@ export default class extends Controller {
         data[key] = (data[key] || 0) + value;
       })
     });
-    const dataArray =  Object.entries(data).map(([key, value]) => ({ name: key, value }));
+    const dataArray =  Object.entries(data).map(([key, value]) => ({
+      name: key, value, itemStyle: { color: this.languagesValue[key] }
+    }));
     const languagesPieChart  = echarts.init(document.getElementById(elementId));
 
     languagesPieChart.setOption({
