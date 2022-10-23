@@ -201,33 +201,51 @@ export default class extends Controller {
               name: 'Today',
               value: this.todayTotalValue,
               title: {
-                offsetCenter: ['0%', '-50%']
+                offsetCenter: ['0%', '-50%'],
+                fontWeight: 'bold',
+                color: '#013282'
               },
               detail: {
                 valueAnimation: true,
-                offsetCenter: ['0%', '-40%']
+                offsetCenter: ['0%', '-40%'],
+                color: '#013282',
               },
+              itemStyle: {
+                color: '#013282'
+              }
             },
             {
               name: 'Yesterday',
               value: this.yesterdayTotalValue,
               title: {
-                offsetCenter: ['0%', '-20%']
+                offsetCenter: ['0%', '-20%'],
+                fontWeight: 'bold',
+                color: '#37A2FF'
               },
               detail: {
                 valueAnimation: true,
-                offsetCenter: ['0%', '-10%']
+                offsetCenter: ['0%', '-10%'],
+                color: '#37A2FF'
+              },
+              itemStyle: {
+                color: '#37A2FF'
               }
             },
             {
               name: 'Mean in Period',
               value: this.periodTotalValue,
               title: {
-                offsetCenter: ['0%', '10%']
+                offsetCenter: ['0%', '10%'],
+                fontWeight: 'bold',
+                color: '#017182'
               },
               detail: {
                 valueAnimation: true,
-                offsetCenter: ['0%', '20%']
+                offsetCenter: ['0%', '20%'],
+                color: '#017182'
+              },
+              itemStyle: {
+                color: '#017182'
               }
             },
 
