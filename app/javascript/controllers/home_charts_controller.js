@@ -2,6 +2,8 @@ import { Controller } from "@hotwired/stimulus";
 import * as echarts from 'echarts';
 import { format, parseISO, intervalToDuration, formatDuration } from 'date-fns'
 
+const COLOR_PALLETE = ['#4e79a7', '#f28e2c', '#e15759', '#76b7b2', '#59a14f', '#edc949', '#af7aa1', '#ff9da7', '#9c755f', '#bab0ab'];
+
 export default class extends Controller {
   static values = {
     daily: Array,
@@ -13,11 +15,25 @@ export default class extends Controller {
   }
 
   connect() {
+    this.setProjectColors();
     this.buildDailyTimePerProjectChart('dailyTimePerProjectChart');
     this.buildDailyTimePerLanguageChart('dailyTimePerLanguageChart');
     this.buildTotalsChart('totalsChart');
     this.buildLanguagesPieChart('languagesPieChart');
     this.buildProjectsPieChart('projectsPieChart');
+  }
+
+  setProjectColors() {
+    this.projectColors = {}
+
+    this.dailyValue.forEach(day => {
+      Object.entries(day[2]).forEach(([key]) => {
+        const keys = Object.keys(this.projectColors);
+        if (!keys.includes(key)) {
+          this.projectColors[key] = COLOR_PALLETE[keys.length];
+        }
+      })
+    });
   }
 
   buildDailyTimePerProjectChart(elementId) {
@@ -65,7 +81,8 @@ export default class extends Controller {
           tooltip: {
             valueFormatter: (value) => value && this.formatDuration(value)
           },
-          connectNulls: false
+          connectNulls: false,
+          itemStyle: { color: this.projectColors[key] }
         }))
       ],
       tooltip: {
@@ -203,15 +220,15 @@ export default class extends Controller {
               title: {
                 offsetCenter: ['0%', '-50%'],
                 fontWeight: 'bold',
-                color: '#013282'
+                color: '#4e79a7'
               },
               detail: {
                 valueAnimation: true,
                 offsetCenter: ['0%', '-40%'],
-                color: '#013282',
+                color: '#4e79a7',
               },
               itemStyle: {
-                color: '#013282'
+                color: '#4e79a7'
               }
             },
             {
@@ -220,15 +237,15 @@ export default class extends Controller {
               title: {
                 offsetCenter: ['0%', '-20%'],
                 fontWeight: 'bold',
-                color: '#37A2FF'
+                color: '#76b7b2'
               },
               detail: {
                 valueAnimation: true,
                 offsetCenter: ['0%', '-10%'],
-                color: '#37A2FF'
+                color: '#76b7b2'
               },
               itemStyle: {
-                color: '#37A2FF'
+                color: '#76b7b2'
               }
             },
             {
@@ -237,15 +254,15 @@ export default class extends Controller {
               title: {
                 offsetCenter: ['0%', '10%'],
                 fontWeight: 'bold',
-                color: '#017182'
+                color: '#9c755f'
               },
               detail: {
                 valueAnimation: true,
                 offsetCenter: ['0%', '20%'],
-                color: '#017182'
+                color: '#9c755f'
               },
               itemStyle: {
-                color: '#017182'
+                color: '#9c755f'
               }
             },
 
@@ -336,13 +353,15 @@ export default class extends Controller {
   buildProjectsPieChart(elementId) {
     const data = {};
     this.dailyValue.forEach(day => {
-      const languages = day[2];
-      if (!languages) return;
-      Object.entries(languages).forEach(([key, value]) => {
+      const projects = day[2];
+      if (!projects) return;
+      Object.entries(projects).forEach(([key, value]) => {
         data[key] = (data[key] || 0) + value;
       })
     });
-    const dataArray =  Object.entries(data).map(([key, value]) => ({ name: key, value }));
+    const dataArray =  Object.entries(data).map(([key, value]) => ({
+      name: key, value, itemStyle: { color: this.projectColors[key] }
+    }));
     const projectsPieChart  = echarts.init(document.getElementById(elementId));
 
     projectsPieChart.setOption({
