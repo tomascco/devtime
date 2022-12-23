@@ -18,9 +18,9 @@ DevTime is a tool for track how much time developers spend while coding on their
 - And many more features are coming 🚀...
 
 ## Application
-You can use the application hosted in Heroku. It's in beta, so you can lose all data tracked in the official release.
+You can use the application hosted in Fly.io. It's in beta, so you can lose all data tracked in the official release.
 
-[devtimer.herokuapp.com](https://devtimer.herokuapp.com/)
+[https://devtime.fly.dev/](https://devtime.fly.dev/)
 ## Installation
 
 You can run your own server by cloning the repository. It is also good because all data being stored belongs to you!
