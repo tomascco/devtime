@@ -52,3 +52,27 @@ Language.insert_all([
     hex_color: "#E10098"
   }
 ])
+
+account = Account.create(email: "test@example.com", password: "qwe123", status: "verified")
+
+projects = ["Project 1", "Project 2", "Project 3"]
+languages = ["ruby", "javascript", "typescript"]
+days = (10.days.ago.to_date..Date.today.to_date).to_a
+
+days.each do |day|
+  timestamp = day.beginning_of_day
+  summary = Summary.find_or_create_by(account_id: account.id, day: day)
+
+  hits = []
+  1000.times do
+    hits << {
+      project: projects.sample,
+      language: languages.sample,
+      timestamp: timestamp.to_s
+    }
+    timestamp += rand(1..10).seconds
+  end
+
+  Summary.where(id: summary.id).update(raw_hits: hits)
+  Summary::Build.perform_now(account:, day:)
+end
