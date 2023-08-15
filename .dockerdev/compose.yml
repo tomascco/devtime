@@ -2,10 +2,10 @@ x-app: &app
   build:
     context: .
     args:
-      RUBY_VERSION: '3.1.2'
-      PG_MAJOR: '14'
-      NODE_MAJOR: '16'
-  image: devtime-dev:1.0.0
+      RUBY_VERSION: '3.2.2'
+      PG_MAJOR: '15'
+      NODE_MAJOR: '18'
+  image: devtime-dev:2.0.0
   environment: &env
     NODE_ENV: ${NODE_ENV:-development}
     RAILS_ENV: ${RAILS_ENV:-development}
@@ -58,10 +58,8 @@ services:
     depends_on:
       sidekiq:
         condition: service_started
-    depends_on:
       tailwind:
         condition: service_started
-    depends_on:
       esbuild:
         condition: service_started
 
@@ -71,7 +69,7 @@ services:
     command: bundle exec sidekiq
 
   postgres:
-    image: postgres:14
+    image: postgres:15
     volumes:
       - .psqlrc:/root/.psqlrc:ro
       - postgres:/var/lib/postgresql/data
@@ -86,7 +84,7 @@ services:
       interval: 5s
 
   redis:
-    image: redis:6.0-alpine
+    image: redis:7.0-alpine
     volumes:
       - redis:/data
     ports:
