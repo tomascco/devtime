@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import * as echarts from "echarts";
-import { fromUnixTime, format, addSeconds, getUnixTime, parseISO, startOfDay } from "date-fns";
+import { fromUnixTime, format, addSeconds, getUnixTime, parseJSON, startOfDay } from "date-fns";
 
 export default class extends Controller {
   static values = {
@@ -10,9 +10,9 @@ export default class extends Controller {
   connect() {
     const timelineChart =  echarts.init(document.getElementById('hits-timeline'));
     const projects = [];
-    const dayStart = getUnixTime(startOfDay(parseISO(this.hitsValue[0].timestamp)));
+    const dayStart = getUnixTime(startOfDay(parseJSON(this.hitsValue[0].timestamp)));
     const data = this.hitsValue.map(hit => {
-      const hitTime = getUnixTime(parseISO(hit.timestamp));
+      const hitTime = getUnixTime(parseJSON(hit.timestamp));
       let projectIndex = projects.findIndex(p => p === hit.project);
       if (projectIndex === -1) {
         projects.push(hit.project);
