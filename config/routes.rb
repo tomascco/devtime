@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     resources :home, only: :index
     resources :hits, only: :index
+    resources :appointments, only: [:index, :new]
     resource :profile, only: [:show, :update]
   end
 

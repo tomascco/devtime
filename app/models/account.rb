@@ -17,6 +17,7 @@ class Account < ApplicationRecord
   include Rodauth::Rails.model
   enum :status, unverified: 1, verified: 2, closed: 3
 
+  has_many :appointments, dependent: :destroy
   has_many :hits, dependent: :destroy
 
   def add_api_token

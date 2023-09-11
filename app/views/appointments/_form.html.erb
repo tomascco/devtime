@@ -1,0 +1,28 @@
+<div class="container mx-auto flex flex-col gap-5">
+  <h1 class="text-3xl">
+    Create Appointment
+  </h1>
+
+  <%= form_with(model: appointment, url: appointments_path) do |f| %>
+    <div class="form-control w-full mb-2">
+      <%= f.label :time_range_start, class: "label" %>
+      <%= f.datetime_field :time_range_start, class: "input" %>
+    </div>
+
+    <div class="form-control w-full mb-2">
+      <%= f.label :time_range_end, class: "label" %>
+      <%= f.datetime_field :time_range_end, class: "input" %>
+    </div>
+
+    <div class="form-control w-full mb-2">
+      <%= f.label :comment, class: "label" %>
+      <%= f.text_field :comment, class: "textarea" %>
+    </div>
+
+    <%= f.submit "Save", class: "btn btn-primary w-full mt-3" %>
+  <% end %>
+</div>
+
+<script>
+  document.getElementById('host-input').value = window.location.origin;
+</script>
