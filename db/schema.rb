@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_17_133858) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_13_162540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_133858) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "account_id", null: false
+    t.index ["account_id"], name: "index_appointment_kinds_on_account_id"
     t.index ["name"], name: "index_appointment_kinds_on_name", unique: true
   end
 
@@ -102,6 +104,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_17_133858) do
   add_foreign_key "account_password_reset_keys", "accounts", column: "id"
   add_foreign_key "account_remember_keys", "accounts", column: "id"
   add_foreign_key "account_verification_keys", "accounts", column: "id"
+  add_foreign_key "appointment_kinds", "accounts"
   add_foreign_key "appointments", "accounts"
   add_foreign_key "appointments", "appointment_kinds"
   add_foreign_key "hits", "accounts"
