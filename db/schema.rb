@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_13_162540) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_16_155414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -67,16 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_162540) do
     t.index ["appointment_kind_id"], name: "index_appointments_on_appointment_kind_id"
   end
 
-  create_table "hits", force: :cascade do |t|
-    t.datetime "timestamp", precision: nil
-    t.string "language"
-    t.string "project"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "account_id", null: false
-    t.index ["account_id"], name: "index_hits_on_account_id"
-  end
-
   create_table "languages", force: :cascade do |t|
     t.string "name", null: false
     t.string "hex_color", null: false
@@ -107,6 +97,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_162540) do
   add_foreign_key "appointment_kinds", "accounts"
   add_foreign_key "appointments", "accounts"
   add_foreign_key "appointments", "appointment_kinds"
-  add_foreign_key "hits", "accounts"
   add_foreign_key "summaries", "accounts"
 end

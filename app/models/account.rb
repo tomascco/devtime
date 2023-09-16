@@ -18,7 +18,7 @@ class Account < ApplicationRecord
   enum :status, unverified: 1, verified: 2, closed: 3
 
   has_many :appointments, dependent: :destroy
-  has_many :hits, dependent: :destroy
+  has_many :appointment_kinds, dependent: :destroy
 
   def add_api_token
     secret = ::Rails.application.secret_key_base
