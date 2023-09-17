@@ -80,3 +80,5 @@ gem "cssbundling-rails"
 gem "sidekiq"
 gem "activejob-uniqueness"
 gem "jsbundling-rails"
+
+gem "dockerfile-rails", ">= 1.5", :group => :development
