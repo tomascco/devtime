@@ -23,4 +23,13 @@
 class Appointment < ApplicationRecord
   belongs_to :account
   belongs_to :appointment_kind
+
+  attribute :time_range_start, :datetime
+  attribute :time_range_end, :datetime
+
+  validates :time_range, presence: true
+
+  def duration
+    time_range.end - time_range.begin
+  end
 end

@@ -18,4 +18,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #
 class AppointmentKind < ApplicationRecord
+  belongs_to :account
+
+  validates :name, presence: true, uniqueness: {scope: :account_id}
 end
