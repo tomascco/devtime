@@ -42,7 +42,7 @@ class HomeController < ApplicationController
       elsif programming_summary.blank? && appointment_summary.present?
         array << appointment_summary and next
       elsif programming_summary.blank? && appointment_summary.blank?
-        next
+        array << [day, 0, {}, {}] and next
       end
 
       array << [
