@@ -19,7 +19,8 @@ module.exports = {
           "neutral": "#5d5656",
           "neutral-content": "#e9e7e7",
           "base-100": "#e9e7e7",
-          "base-content": "#100f0f"
+          "base-content": "#100f0f",
+          "error": "#e11d48"
         }
       }
     ]

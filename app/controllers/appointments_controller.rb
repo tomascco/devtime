@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   def index
+    @appointments = current_account.appointments.includes(:appointment_kind)
   end
 
   def new
@@ -31,6 +32,14 @@ class AppointmentsController < ApplicationController
     appointment.time_range = appointment.time_range_start..appointment.time_range_end
 
     if appointment.save
+      redirect_to(appointments_path)
+    end
+  end
+
+  def destroy
+    appointment = current_account.appointments.find(params[:id])
+
+    if appointment.destroy
       redirect_to(appointments_path)
     end
   end
