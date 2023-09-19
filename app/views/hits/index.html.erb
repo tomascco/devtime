@@ -8,6 +8,9 @@
     class="w-full h-[500px]"
     data-controller="hits-charts"
     data-hits-charts-hits-value="<%= @hits.to_json %>"
+    data-hits-charts-appointments-value="<%= @appointments.to_json %>"
+    data-hits-charts-day-value="<%= @day %>"
+    data-hits-charts-time-zone-value="<%= ActiveSupport::TimeZone::MAPPING[Time.zone.name] %>"
     id="hits-timeline"
   ></div>
   <div class="overflow-x-auto max-h-[500px]">
