@@ -1,28 +1,28 @@
 class HomeController < ApplicationController
   def index
     today_programming_total_time =
-      Summary.where(account: current_account, day: Time.current).pick(:total_time).to_i
+      current_account.summaries.where(day: Time.current).pick(:total_time).to_i
     yesterday_programming_total_time =
-      Summary.where(account: current_account, day: Time.zone.yesterday).pick(:total_time).to_i
+      current_account.summaries.where(day: Time.zone.yesterday).pick(:total_time).to_i
 
-    today_appointments_total_time = Appointment
+    today_appointments_total_time = current_account.appointments
       .where("? @> time_range", Appointment.connection.type_cast(Time.current.beginning_of_day..Time.current.end_of_day))
       .reduce(0) { _1 + _2.duration.to_i }
 
-    yesterday_appointments_total_time = Appointment
+    yesterday_appointments_total_time = current_account.appointments
       .where("? @> time_range", Appointment.connection.type_cast(Time.zone.yesterday.beginning_of_day..Time.zone.yesterday.end_of_day))
       .reduce(0) { _1 + _2.duration.to_i }
 
     @today_summary = today_programming_total_time + today_appointments_total_time
     @yesterday_summary = yesterday_programming_total_time + yesterday_appointments_total_time
 
-    programming_summaries = Summary
-      .where(account: current_account, day: date_range)
+    programming_summaries = current_account.summaries
+      .where(day: date_range)
       .order(:day)
       .pluck(:day, :total_time, :projects, :languages)
     @languages_hash = Language.all_in_hash
 
-    appointments = Appointment.includes(:appointment_kind).where("? @> time_range", Appointment.connection.type_cast(date_range))
+    appointments = current_account.appointments.includes(:appointment_kind).where("? @> time_range", Appointment.connection.type_cast(date_range))
     appointment_summaries = appointments.group_by { _1.time_range.begin.to_date }.map do |(day, appointments)|
       total_duration = appointments.reduce(0) { _1 + _2.duration.to_i }
 

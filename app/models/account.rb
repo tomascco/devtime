@@ -19,6 +19,7 @@ class Account < ApplicationRecord
 
   has_many :appointments, dependent: :destroy
   has_many :appointment_kinds, dependent: :destroy
+  has_many :summaries, dependent: :destroy
 
   def add_api_token
     secret = ::Rails.application.secret_key_base
