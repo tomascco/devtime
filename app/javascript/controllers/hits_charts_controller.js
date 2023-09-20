@@ -34,13 +34,13 @@ export default class extends Controller {
     this.appointmentsValue.forEach(appointment => {
       const startTime = getUnixTime(parseJSON(appointment.start_time)) - dayStart;
       const endTime = getUnixTime(parseJSON(appointment.end_time)) - dayStart;
-      let appointmentKindIndex = projects.findIndex(a => a === appointment.name);
+      let appointmentKindIndex = projects.findIndex(a => a === "Appointments");
       if (appointmentKindIndex === -1) {
-        projects.push(appointment.name);
+        projects.push("Appointments");
         appointmentKindIndex = projects.length - 1;
       }
 
-      data.push({name: "appointment", value: [appointmentKindIndex, startTime, endTime]})
+      data.push({name: appointment.name, value: [appointmentKindIndex, startTime, endTime]})
     });
 
     timelineChart.setOption({
