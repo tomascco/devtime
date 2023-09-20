@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_22_224411) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_16_155414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -47,14 +47,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_224411) do
     t.index ["email"], name: "index_accounts_on_email", unique: true, where: "(status = ANY (ARRAY[1, 2]))"
   end
 
-  create_table "hits", force: :cascade do |t|
-    t.datetime "timestamp", precision: nil
-    t.string "language"
-    t.string "project"
+  create_table "appointment_kinds", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "account_id", null: false
-    t.index ["account_id"], name: "index_hits_on_account_id"
+    t.index ["account_id"], name: "index_appointment_kinds_on_account_id"
+    t.index ["name"], name: "index_appointment_kinds_on_name", unique: true
+  end
+
+  create_table "appointments", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.tstzrange "time_range"
+    t.bigint "appointment_kind_id", null: false
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_appointments_on_account_id"
+    t.index ["appointment_kind_id"], name: "index_appointments_on_appointment_kind_id"
   end
 
   create_table "languages", force: :cascade do |t|
@@ -84,6 +94,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_224411) do
   add_foreign_key "account_password_reset_keys", "accounts", column: "id"
   add_foreign_key "account_remember_keys", "accounts", column: "id"
   add_foreign_key "account_verification_keys", "accounts", column: "id"
-  add_foreign_key "hits", "accounts"
+  add_foreign_key "appointment_kinds", "accounts"
+  add_foreign_key "appointments", "accounts"
+  add_foreign_key "appointments", "appointment_kinds"
   add_foreign_key "summaries", "accounts"
 end

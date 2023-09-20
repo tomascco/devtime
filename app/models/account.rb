@@ -1,8 +1,25 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id            :bigint           not null, primary key
+#  api_token     :string
+#  email         :citext           not null
+#  password_hash :string
+#  status        :integer          default("unverified"), not null
+#  timezone      :string           default("UTC")
+#
+# Indexes
+#
+#  index_accounts_on_email  (email) UNIQUE WHERE (status = ANY (ARRAY[1, 2]))
+#
 class Account < ApplicationRecord
   include Rodauth::Rails.model
   enum :status, unverified: 1, verified: 2, closed: 3
 
-  has_many :hits, dependent: :destroy
+  has_many :appointments, dependent: :destroy
+  has_many :appointment_kinds, dependent: :destroy
+  has_many :summaries, dependent: :destroy
 
   def add_api_token
     secret = ::Rails.application.secret_key_base

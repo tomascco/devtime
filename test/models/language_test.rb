@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: languages
+#
+#  id         :bigint           not null, primary key
+#  hex_color  :string           not null
+#  name       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 require "test_helper"
 
 class LanguageTest < ActiveSupport::TestCase

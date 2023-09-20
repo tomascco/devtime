@@ -1,16 +1,21 @@
 import { Controller } from "@hotwired/stimulus";
 import * as echarts from "echarts";
 import { fromUnixTime, format, addSeconds, getUnixTime, parseJSON, startOfDay } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz"
 
 export default class extends Controller {
   static values = {
-    hits: Array
+    hits: Array,
+    appointments: Array,
+    day: String,
+    timeZone: String
   }
 
   connect() {
     const timelineChart =  echarts.init(document.getElementById('hits-timeline'));
     const projects = [];
-    const dayStart = getUnixTime(startOfDay(parseJSON(this.hitsValue[0].timestamp)));
+    const dayStart = getUnixTime(utcToZonedTime(this.dayValue, this.timeZoneValue));
+
     const data = this.hitsValue.map(hit => {
       const hitTime = getUnixTime(parseJSON(hit.timestamp));
       let projectIndex = projects.findIndex(p => p === hit.project);
@@ -22,8 +27,20 @@ export default class extends Controller {
 
       return {
         name: hit.language,
-        value: [projectIndex, timemark, timemark + 10, 1]
+        value: [projectIndex, timemark, timemark + 10]
       }
+    });
+
+    this.appointmentsValue.forEach(appointment => {
+      const startTime = getUnixTime(parseJSON(appointment.start_time)) - dayStart;
+      const endTime = getUnixTime(parseJSON(appointment.end_time)) - dayStart;
+      let appointmentKindIndex = projects.findIndex(a => a === "Appointments");
+      if (appointmentKindIndex === -1) {
+        projects.push("Appointments");
+        appointmentKindIndex = projects.length - 1;
+      }
+
+      data.push({name: appointment.name, value: [appointmentKindIndex, startTime, endTime]})
     });
 
     timelineChart.setOption({
